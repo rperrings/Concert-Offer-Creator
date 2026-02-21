@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concert Offer Creator — Talent Engagement Term Sheet</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CONCERT OFFER CREATOR</h1>
+            <p class="subtitle">Talent Engagement Term Sheet Creator</p>
+        </header>
+
+        <form id="termSheetForm" autocomplete="off">
+            <section class="form-section">
+                <h2>Offer Type</h2>
+                <div class="form-group">
+                    <label>Type of Offer</label>
+                    <div class="segmented-control" id="offerType">
+                        <button type="button" data-value="Festival">Festival</button>
+                        <button type="button" data-value="Hard Tickets">Hard Tickets</button>
+                        <button type="button" data-value="Private Event">Private Event</button>
+                        <button type="button" data-value="Public Corporate Event">Public Corporate Event</button>
+                        <button type="button" data-value="Soft Ticket (Nightclub/Dayclub)">Soft Ticket<br><span class="sub-label">(Nightclub/Dayclub)</span></button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="form-section">
+                <h2>Talent Details</h2>
+                <div class="form-group">
+                    <label for="talentName">Talent (Artist)</label>
+                    <input type="text" id="talentName" placeholder="Enter artist name" required>
+                </div>
+                <div class="form-group">
+                    <label for="talentAgency">Talent's Agent Agency</label>
+                    <select id="talentAgency">
+                        <option value="" disabled selected>Select agency</option>
+                        <option value="Ace Agency">Ace Agency</option>
+                        <option value="Anna Agency">Anna Agency</option>
+                        <option value="APA">APA (Agency for the Performing Arts)</option>
+                        <option value="Arrival Artists">Arrival Artists</option>
+                        <option value="CAA">CAA (Creative Artists Agency)</option>
+                        <option value="CS3">CS3 Agency</option>
+                        <option value="DGI Management">DGI Management</option>
+                        <option value="Gongaware Group">Gongaware Group</option>
+                        <option value="ICM">ICM Partners</option>
+                        <option value="Independent Artist Group">Independent Artist Group</option>
+                        <option value="Mint Talent">Mint Talent Group</option>
+                        <option value="OBO">OBO Agency</option>
+                        <option value="Primary Talent">Primary Talent International</option>
+                        <option value="SKAM">SKAM Artist</option>
+                        <option value="Spin Agency">Spin Agency</option>
+                        <option value="UTA">UTA (United Talent Agency)</option>
+                        <option value="Wasserman">Wasserman Music</option>
+                        <option value="WME">WME (William Morris Endeavor)</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <input type="text" id="talentAgencyOther" class="other-input" placeholder="Enter agency name" style="display: none;">
+                </div>
+                <div class="form-group">
+                    <label for="talentAgent">Talent's Agent</label>
+                    <select id="talentAgent" disabled>
+                        <option value="" disabled selected>Select agency first</option>
+                    </select>
+                    <input type="text" id="talentAgentOther" class="other-input" placeholder="Enter agent name" style="display: none;">
+                </div>
+            </section>
+
+            <section id="sharedEventDetails" class="form-section">
+                <h2>Event Details</h2>
+                <div class="form-group">
+                    <label for="venueName">Venue Name</label>
+                    <input type="text" id="venueName" placeholder="Enter venue name" required>
+                </div>
+                <div class="form-group">
+                    <label for="venueCity">Venue City / State</label>
+                    <input type="text" id="venueCity" placeholder="e.g., Boston, Massachusetts" required>
+                </div>
+                <div class="form-group">
+                    <label for="eventContact">Event Contact</label>
+                    <input type="text" id="eventContact" placeholder="Enter contact name" required>
+                </div>
+                <div class="form-group">
+                    <label for="performanceTime">Performance Time: <span id="performanceTimeDisplay">120 min</span></label>
+                    <input type="range" id="performanceTime" min="0" max="195" step="15" value="120" class="time-slider">
+                    <input type="text" id="performanceTimeOther" class="other-input" placeholder="e.g., Minimum of 240 minute performance" style="display: none;">
+                </div>
+                <div class="form-group">
+                    <label>Proposed Set Time</label>
+                    <div class="time-row">
+                        <select id="setTimeHour">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10" selected>10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                        <select id="setTimeMinute">
+                            <option value="00" selected>00</option>
+                            <option value="15">15</option>
+                            <option value="30">30</option>
+                            <option value="45">45</option>
+                        </select>
+                        <select id="setTimePeriod">
+                            <option value="PM" selected>PM</option>
+                            <option value="AM">AM</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Engagement Date</label>
+                    <input type="text" id="engagementDateDisplay" class="date-picker-input" placeholder="Select date" readonly required>
+                    <input type="hidden" id="engagementDate">
+                </div>
+                <div id="eventDetailsField" class="form-group" style="display: none;">
+                    <label for="eventDetails">Event Details</label>
+                    <textarea id="eventDetails" rows="4" placeholder="Describe event details, special requirements, etc."></textarea>
+                </div>
+            </section>
+
+            <!-- Hard Ticket Offer fields -->
+            <section id="hardTicketFields" class="form-section" style="display: none;">
+                <h2>Deal Terms</h2>
+                <div class="form-group">
+                    <label for="ticketPrice">Ticket Price ($)</label>
+                    <input type="text" id="ticketPrice" placeholder="e.g., 45" inputmode="decimal">
+                </div>
+                <div class="form-group">
+                    <label for="venueCapacity">Venue Capacity</label>
+                    <input type="text" id="venueCapacity" placeholder="e.g., 2,500" inputmode="numeric">
+                </div>
+                <div class="form-group">
+                    <label>Deal Structure</label>
+                    <div id="dealStructure" class="segmented-control">
+                        <button type="button" data-value="Flat Guarantee">Flat Guarantee</button>
+                        <button type="button" data-value="Guarantee + Backend %">Backend %</button>
+                        <button type="button" data-value="Door Deal (Split)">Door Deal</button>
+                        <button type="button" data-value="Co-Promote">Co-Promote</button>
+                        <button type="button" data-value="Versus (Higher of Guarantee or %)">Versus</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Private Event fields -->
+            <section id="privateEventFields" class="form-section" style="display: none;">
+                <h2>Event Info</h2>
+                <div class="form-group">
+                    <label for="clientName">Client Name</label>
+                    <input type="text" id="clientName" placeholder="e.g., Acme Corp">
+                </div>
+                <div class="form-group">
+                    <label for="privateEventType">Event Type</label>
+                    <select id="privateEventType">
+                        <option value="" disabled selected>Select event type</option>
+                        <option value="Wedding">Wedding</option>
+                        <option value="Corporate">Corporate</option>
+                        <option value="Birthday">Birthday</option>
+                        <option value="Holiday Party">Holiday Party</option>
+                        <option value="Fundraiser / Charity">Fundraiser / Charity</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <input type="text" id="privateEventTypeOther" class="other-input" placeholder="Enter event type" style="display: none;">
+                </div>
+                <div class="form-group">
+                    <label for="guestCount">Guest Count</label>
+                    <input type="text" id="guestCount" placeholder="e.g., 250" inputmode="numeric">
+                </div>
+            </section>
+
+            <!-- Hard Tickets fields -->
+            <section id="theaterFields" style="display: none;">
+                <div class="form-section">
+                    <h2>Show Details</h2>
+                    <div class="form-group">
+                        <label for="theaterEventContact">Event Contact</label>
+                        <input type="text" id="theaterEventContact" placeholder="Insert name">
+                    </div>
+                    <div class="form-group">
+                        <label for="theaterEventContactAddress">Event Contact Address</label>
+                        <input type="text" id="theaterEventContactAddress" placeholder="e.g., 1111 Park Ave New York City, NY 10011">
+                    </div>
+                    <div class="form-group">
+                        <label for="theaterEventContactEmail">Event Contact Email</label>
+                        <input type="email" id="theaterEventContactEmail" placeholder="youremail@promoter.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="theaterAgentLocation">Agency</label>
+                        <input type="text" id="theaterAgentLocation" placeholder="Talent Agency Name - LA">
+                    </div>
+                    <div class="form-group">
+                        <label for="theaterAgentEmail">Agent Email</label>
+                        <input type="email" id="theaterAgentEmail" placeholder="agent@talentagency.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="theaterEventTitle">Event Title</label>
+                        <input type="text" id="theaterEventTitle" placeholder="Justin Bieber at the Greek Theater (Los Angeles)">
+                    </div>
+                    <div class="form-group">
+                        <label for="theaterNumShows">Number of Shows</label>
+                        <select id="theaterNumShows">
+                            <option value="1" selected>1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Show Date</label>
+                        <input type="text" id="theaterShowDateDisplay" class="date-picker-input" placeholder="Select date" readonly>
+                        <input type="hidden" id="theaterShowDate">
+                    </div>
+                    <div class="form-group">
+                        <label>Doors Time: <span id="theaterDoorsTimeDisplay">6:00 PM</span></label>
+                        <input type="range" id="theaterDoorsTime" min="705" max="1635" step="15" value="1080" class="time-slider">
+                        <div id="theaterDoorsTimeOther" class="time-row" style="display: none;">
+                            <select id="theaterDoorsOtherHour">
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+                                <option value="4">4</option><option value="5">5</option><option value="6" selected>6</option>
+                                <option value="7">7</option><option value="8">8</option><option value="9">9</option>
+                                <option value="10">10</option><option value="11">11</option><option value="12">12</option>
+                            </select>
+                            <select id="theaterDoorsOtherMinute">
+                                <option value="00" selected>00</option><option value="15">15</option>
+                                <option value="30">30</option><option value="45">45</option>
+                            </select>
+                            <select id="theaterDoorsOtherPeriod">
+                                <option value="AM">AM</option><option value="PM" selected>PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Show Time: <span id="theaterShowTimeDisplay">7:00 PM</span></label>
+                        <input type="range" id="theaterShowTime" min="705" max="1635" step="15" value="1140" class="time-slider">
+                        <div id="theaterShowTimeOther" class="time-row" style="display: none;">
+                            <select id="theaterShowOtherHour">
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+                                <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+                                <option value="7" selected>7</option><option value="8">8</option><option value="9">9</option>
+                                <option value="10">10</option><option value="11">11</option><option value="12">12</option>
+                            </select>
+                            <select id="theaterShowOtherMinute">
+                                <option value="00" selected>00</option><option value="15">15</option>
+                                <option value="30">30</option><option value="45">45</option>
+                            </select>
+                            <select id="theaterShowOtherPeriod">
+                                <option value="AM">AM</option><option value="PM" selected>PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Curfew Time: <span id="theaterCurfewTimeDisplay">11:00 PM</span></label>
+                        <input type="range" id="theaterCurfewTime" min="705" max="1635" step="15" value="1380" class="time-slider">
+                        <div id="theaterCurfewTimeOther" class="time-row" style="display: none;">
+                            <select id="theaterCurfewOtherHour">
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+                                <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+                                <option value="7">7</option><option value="8">8</option><option value="9">9</option>
+                                <option value="10">10</option><option value="11" selected>11</option><option value="12">12</option>
+                            </select>
+                            <select id="theaterCurfewOtherMinute">
+                                <option value="00" selected>00</option><option value="15">15</option>
+                                <option value="30">30</option><option value="45">45</option>
+                            </select>
+                            <select id="theaterCurfewOtherPeriod">
+                                <option value="AM">AM</option><option value="PM" selected>PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="theaterVenue">Venue</label>
+                        <input type="text" id="theaterVenue" placeholder="Enter venue name">
+                    </div>
+                    <div class="form-group">
+                        <label for="theaterCityState">City / State</label>
+                        <input type="text" id="theaterCityState" placeholder="e.g., Boston, Massachusetts">
+                    </div>
+                    <div class="form-group">
+                        <label for="theaterCapacity">Capacity</label>
+                        <input type="text" id="theaterCapacity" placeholder="e.g., 2,500" inputmode="numeric">
+                    </div>
+                    <div class="form-group">
+                        <label>Age Restriction</label>
+                        <div id="theaterAgeRestriction" class="segmented-control segmented-control-small">
+                            <button type="button" data-value="All Ages" class="active">All Ages</button>
+                            <button type="button" data-value="18+">18+</button>
+                            <button type="button" data-value="21+">21+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <h2>Offer Details</h2>
+                    <div class="form-group">
+                        <label>Deal Structure</label>
+                        <div id="theaterDealStructure" class="segmented-control">
+                            <button type="button" data-value="Flat Guarantee">Flat Guarantee</button>
+                            <button type="button" data-value="Versus">Versus</button>
+                            <button type="button" data-value="Plus Deal">Plus Deal</button>
+                            <button type="button" data-value="Straight Percentage">Straight %</button>
+                        </div>
+                        <input type="text" id="theaterDealStructureValue" class="other-input" placeholder="e.g., 85%" style="display: none;">
+                    </div>
+                    <div class="form-group">
+                        <label for="theaterDealTerms">Deal Terms Description</label>
+                        <textarea id="theaterDealTerms" rows="3" placeholder="e.g., Guarantee inclusive of Artist Supplied Sound & Lights, Production Contribution and Support versus 90.00% of the gross box office receipts after deduction of approved fees, taxes (NBOR) and expenses."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="theaterHeadliner">Headliner</label>
+                        <input type="text" id="theaterHeadliner" placeholder="Enter headliner name">
+                    </div>
+                    <div class="form-group" id="headlinerFeeGroup">
+                        <label for="theaterHeadlinerFee">Headliner Fee ($)</label>
+                        <input type="text" id="theaterHeadlinerFee" placeholder="e.g., 100,000" inputmode="decimal">
+                    </div>
+                    <div class="form-group">
+                        <label>Support</label>
+                        <div id="theaterSupportToggle" class="segmented-control segmented-control-small">
+                            <button type="button" data-value="Yes">Yes</button>
+                            <button type="button" data-value="No" class="active">No</button>
+                        </div>
+                        <div id="theaterSupportFields" style="display: none;">
+                            <div class="form-group" style="margin-top: 12px;">
+                                <label for="theaterSupport">Support Act(s)</label>
+                                <input type="text" id="theaterSupport" placeholder="Enter support act(s)">
+                            </div>
+                            <div class="form-group">
+                                <label for="theaterSupportFee">Support Fee ($)</label>
+                                <input type="text" id="theaterSupportFee" placeholder="e.g., 15,000" inputmode="decimal">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="theaterTotalTalentCost">Total Talent Cost ($)</label>
+                        <input type="text" id="theaterTotalTalentCost" readonly placeholder="Auto-calculated">
+                    </div>
+                    <div class="ticket-scaling-section">
+                        <h3>Ticket Scaling</h3>
+                        <div class="ticket-scaling-header">
+                            <span>Ticket Type</span>
+                            <span>Gross Cap</span>
+                            <span>Comps</span>
+                            <span>Kills</span>
+                            <span>Sellable</span>
+                            <span>Price</span>
+                            <span>Notes</span>
+                            <span>Gross</span>
+                            <span></span>
+                        </div>
+                        <div id="ticketScalingContainer"></div>
+                        <button type="button" id="addTicketScalingBtn" class="add-scaling-btn">+ Add Ticket Area</button>
+                        <div class="ticket-gross-total">
+                            <span class="ticket-gross-total-label">Gross Potential</span>
+                            <input type="text" id="ticketGrossPotential" readonly placeholder="$0">
+                        </div>
+                        <div class="ticket-scaling-extras">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="theaterTaxOnTopRate">Tax on Top Rate</label>
+                                    <input type="text" id="theaterTaxOnTopRate" placeholder="e.g., 9.0000">
+                                </div>
+                                <div class="form-group">
+                                    <label for="theaterTaxOnTopLabel">Tax Label</label>
+                                    <input type="text" id="theaterTaxOnTopLabel" placeholder="e.g., Primary Divider Tax" value="Primary Divider Tax">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="theaterFmfChargeRate">FMF/Venue Charge (per ticket)</label>
+                                    <input type="text" id="theaterFmfChargeRate" placeholder="e.g., 5.0000" inputmode="decimal">
+                                </div>
+                                <div class="form-group">
+                                    <label for="theaterFmfChargeTotal">FMF/Venue Charge Total ($)</label>
+                                    <input type="text" id="theaterFmfChargeTotal" readonly placeholder="Auto-calculated">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="theaterAdjustedGrossPotential">Adjusted Gross Potential ($)</label>
+                                    <input type="text" id="theaterAdjustedGrossPotential" readonly placeholder="Auto-calculated">
+                                </div>
+                                <div class="form-group">
+                                    <label for="theaterNetGrossPotential">Net Gross Potential ($)</label>
+                                    <input type="text" id="theaterNetGrossPotential" readonly placeholder="Auto-calculated">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="expenses-section">
+                        <h3>Expenses</h3>
+                        <div class="expenses-header">
+                            <span>Expense</span>
+                            <span>Rate</span>
+                            <span>Total</span>
+                            <span>Notes</span>
+                        </div>
+                        <div class="expenses-row">
+                            <span class="expense-label">Advertising</span>
+                            <input type="text" id="expenseAdvertisingRate" placeholder="Rate">
+                            <input type="text" id="expenseAdvertisingTotal" placeholder="$0" inputmode="decimal">
+                            <input type="text" id="expenseAdvertisingNotes" placeholder="Notes">
+                        </div>
+                        <div class="expenses-row">
+                            <span class="expense-label">ASCAP</span>
+                            <input type="text" id="expenseAscapRate" value="0.5% of Net Gross">
+                            <input type="text" id="expenseAscapTotal" readonly placeholder="Auto-calculated">
+                            <input type="text" id="expenseAscapNotes" placeholder="Notes">
+                        </div>
+                        <div class="expenses-row">
+                            <span class="expense-label">BMI</span>
+                            <input type="text" id="expenseBmiRate" value="0.5% of Net Gross">
+                            <input type="text" id="expenseBmiTotal" readonly placeholder="Auto-calculated">
+                            <input type="text" id="expenseBmiNotes" placeholder="Notes">
+                        </div>
+                        <div class="expenses-row">
+                            <span class="expense-label">Catering</span>
+                            <input type="text" id="expenseCateringRate" placeholder="Rate">
+                            <input type="text" id="expenseCateringTotal" placeholder="$0" inputmode="decimal">
+                            <input type="text" id="expenseCateringNotes" placeholder="Notes">
+                        </div>
+                        <div class="expenses-row">
+                            <span class="expense-label">CC Fees</span>
+                            <input type="text" id="expenseCcFeesRate" value="3.5% of Gross">
+                            <input type="text" id="expenseCcFeesTotal" readonly placeholder="Auto-calculated">
+                            <input type="text" id="expenseCcFeesNotes" placeholder="Notes">
+                        </div>
+                        <div class="expenses-row">
+                            <span class="expense-label">Event Insurance Expense</span>
+                            <input type="text" id="expenseInsuranceRate" value="$0.79 Per Gross Cap">
+                            <input type="text" id="expenseInsuranceTotal" readonly placeholder="Auto-calculated">
+                            <input type="text" id="expenseInsuranceNotes" placeholder="Notes">
+                        </div>
+                        <div class="expenses-row">
+                            <span class="expense-label">GMR</span>
+                            <input type="text" id="expenseGmrRate" value="0.2% of Net Gross">
+                            <input type="text" id="expenseGmrTotal" readonly placeholder="Auto-calculated">
+                            <input type="text" id="expenseGmrNotes" placeholder="Notes">
+                        </div>
+                        <div class="expenses-row">
+                            <span class="expense-label">House Nut</span>
+                            <input type="text" id="expenseHouseNutRate" placeholder="Rate">
+                            <input type="text" id="expenseHouseNutTotal" placeholder="$0" inputmode="decimal">
+                            <input type="text" id="expenseHouseNutNotes" placeholder="Notes">
+                        </div>
+                        <div class="expenses-row">
+                            <span class="expense-label">General Security</span>
+                            <input type="text" id="expenseSecurityRate" placeholder="Rate">
+                            <input type="text" id="expenseSecurityTotal" placeholder="$0" inputmode="decimal">
+                            <input type="text" id="expenseSecurityNotes" placeholder="Notes">
+                        </div>
+                        <div class="expenses-row">
+                            <span class="expense-label">Runners & Vans</span>
+                            <input type="text" id="expenseRunnersRate" placeholder="Rate">
+                            <input type="text" id="expenseRunnersTotal" placeholder="$0" inputmode="decimal">
+                            <input type="text" id="expenseRunnersNotes" placeholder="Notes">
+                        </div>
+                        <div class="expenses-row">
+                            <span class="expense-label">SESAC</span>
+                            <input type="text" id="expenseSesacRate" value="0.032% of Net Gross">
+                            <input type="text" id="expenseSesacTotal" readonly placeholder="Auto-calculated">
+                            <input type="text" id="expenseSesacNotes" placeholder="Notes">
+                        </div>
+                        <div class="expenses-row">
+                            <span class="expense-label">Stagehands</span>
+                            <input type="text" id="expenseStagehandsRate" placeholder="Rate">
+                            <input type="text" id="expenseStagehandsTotal" placeholder="$0" inputmode="decimal">
+                            <input type="text" id="expenseStagehandsNotes" placeholder="Notes">
+                        </div>
+                        <div class="expenses-total-row">
+                            <span class="expense-label">Total Expenses</span>
+                            <span></span>
+                            <input type="text" id="expensesTotalAmount" readonly placeholder="$0">
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>On Sale Date</label>
+                        <input type="text" id="theaterOnSaleDateDisplay" class="date-picker-input" placeholder="Select date" readonly>
+                        <input type="hidden" id="theaterOnSaleDate">
+                    </div>
+                    <div class="form-group">
+                        <label>On Sale Time: <span id="theaterOnSaleTimeDisplay">10:00 AM</span></label>
+                        <input type="range" id="theaterOnSaleTime" min="345" max="1455" step="15" value="600" class="time-slider">
+                        <div id="theaterOnSaleTimeOther" class="time-row" style="display: none;">
+                            <select id="theaterOnSaleOtherHour">
+                                <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+                                <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+                                <option value="7">7</option><option value="8">8</option><option value="9">9</option>
+                                <option value="10" selected>10</option><option value="11">11</option><option value="12">12</option>
+                            </select>
+                            <select id="theaterOnSaleOtherMinute">
+                                <option value="00" selected>00</option><option value="15">15</option>
+                                <option value="30">30</option><option value="45">45</option>
+                            </select>
+                            <select id="theaterOnSaleOtherPeriod">
+                                <option value="AM" selected>AM</option><option value="PM">PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="merch-scaling-section">
+                        <h3>Merchandise</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="theaterMerchSeller">Merch Seller</label>
+                                <select id="theaterMerchSeller">
+                                    <option value="Venue" selected>Venue</option>
+                                    <option value="Artist">Artist</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="theaterMerchSplit">Merch Split (Artist%/Venue%)</label>
+                                <input type="text" id="theaterMerchSplit" placeholder="e.g., 80.00/20.00" value="80.00/20.00">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="theaterCdDvdSeller">CD/DVD Seller</label>
+                                <select id="theaterCdDvdSeller">
+                                    <option value="Venue" selected>Venue</option>
+                                    <option value="Artist">Artist</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="theaterCdDvdSplit">CD/DVD Split (Artist%/Venue%)</label>
+                                <input type="text" id="theaterCdDvdSplit" placeholder="e.g., 90.00/10.00" value="90.00/10.00">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="merch-scaling-section">
+                        <h3>Summary Potential</h3>
+                        <div class="form-group">
+                            <label for="summaryNetGrossPotential">Net Gross Potential ($)</label>
+                            <input type="text" id="summaryNetGrossPotential" readonly placeholder="Auto-calculated">
+                        </div>
+                        <div class="form-group">
+                            <label for="summaryTotalFixedExpenses">Total Fixed Expenses ($)</label>
+                            <input type="text" id="summaryTotalFixedExpenses" readonly placeholder="Auto-calculated">
+                        </div>
+                        <div class="form-group">
+                            <label for="summaryTotalVariableExpenses">Total Variable Expenses ($)</label>
+                            <input type="text" id="summaryTotalVariableExpenses" readonly placeholder="Auto-calculated">
+                        </div>
+                        <div class="form-group">
+                            <label for="summaryTotalArtistExpenses">Total Artist Related Show Expenses ($)</label>
+                            <input type="text" id="summaryTotalArtistExpenses" readonly placeholder="Auto-calculated">
+                        </div>
+                    </div>
+                    <div class="merch-scaling-section">
+                        <h3>Earnings Potential</h3>
+                        <div class="form-group">
+                            <label for="earningsHeadlineTalent">Headline Talent Potential ($)</label>
+                            <input type="text" id="earningsHeadlineTalent" readonly placeholder="Auto-calculated">
+                        </div>
+                        <div class="form-group">
+                            <label for="earningsTotalArtist">Total Artist Potential (Inclusive of Support) ($)</label>
+                            <input type="text" id="earningsTotalArtist" readonly placeholder="Auto-calculated">
+                        </div>
+                        <div class="form-group">
+                            <label for="earningsPromoter">Promoter Earnings ($)</label>
+                            <input type="text" id="earningsPromoter" readonly placeholder="Auto-calculated">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-section">
+                    <h2>Notes</h2>
+                    <div class="form-group">
+                        <label for="theaterOfferNotes">Offer Notes</label>
+                        <textarea id="theaterOfferNotes" rows="5" placeholder="Enter any offer notes..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="theaterVenueNotes">Venue Notes</label>
+                        <textarea id="theaterVenueNotes" rows="5" placeholder="Enter any venue-specific notes..."></textarea>
+                    </div>
+                </div>
+            </section>
+
+            <section id="sharedTerms" class="form-section">
+                <h2>Terms</h2>
+                <div class="form-group">
+                    <label>Offer Expiration Date</label>
+                    <input type="text" id="offerExpirationDisplay" class="date-picker-input" placeholder="Select date" readonly required>
+                    <input type="hidden" id="offerExpiration">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="numShows">Number of Shows</label>
+                        <select id="numShows">
+                            <option value="1" selected>1 show</option>
+                            <option value="2">2 shows</option>
+                            <option value="3">3 shows</option>
+                            <option value="4">4 shows</option>
+                            <option value="5">5 shows</option>
+                            <option value="6">6 shows</option>
+                            <option value="7">7 shows</option>
+                            <option value="8">8 shows</option>
+                            <option value="9">9 shows</option>
+                            <option value="10">10 shows</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="payment">Payment per Show ($)</label>
+                        <input type="text" id="payment" placeholder="7,500" required inputmode="decimal">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="gross">
+                        Gross Amount ($)
+                        <span class="hint" id="grossHint">Auto: Payment × Shows</span>
+                    </label>
+                    <input type="text" id="gross" placeholder="Auto-filled from Payment × Shows" inputmode="decimal">
+                </div>
+                <div class="form-group">
+                    <label>Bonus</label>
+                    <div class="segmented-control segmented-control-small" id="bonusToggle">
+                        <button type="button" data-value="Yes">Yes</button>
+                        <button type="button" data-value="No" class="active">No</button>
+                    </div>
+                </div>
+                <div id="bonusFields" style="display: none;">
+                    <div class="form-group">
+                        <label for="bonusAmount">Bonus Amount ($)</label>
+                        <input type="text" id="bonusAmount" placeholder="e.g., 5,000" inputmode="decimal">
+                    </div>
+                    <div class="form-group">
+                        <label for="bonusDescription">Bonus Description</label>
+                        <input type="text" id="bonusDescription" placeholder="e.g., If sellout by show date">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Accommodations Included</label>
+                    <div class="segmented-control segmented-control-small" id="accommodationsIncluded">
+                        <button type="button" data-value="Yes">Yes</button>
+                        <button type="button" data-value="No" class="active">No</button>
+                    </div>
+                </div>
+                <div id="accommodationsFields" style="display: none;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="numKingRooms">King Rooms</label>
+                            <select id="numKingRooms">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2" selected>2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="numSuites">Suites</label>
+                            <select id="numSuites">
+                                <option value="0" selected>0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="numOtherRooms">Other Rooms</label>
+                            <select id="numOtherRooms">
+                                <option value="0" selected>0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                            <input type="text" id="otherRoomType" class="other-input" placeholder="Room type (e.g., Double Queen)" style="display: none;">
+                        </div>
+                        <div class="form-group">
+                            <label for="numNights">Nights per Performance</label>
+                            <select id="numNights">
+                                <option value="1" selected>1 night</option>
+                                <option value="2">2 nights</option>
+                                <option value="3">3 nights</option>
+                                <option value="4">4 nights</option>
+                                <option value="5">5 nights</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id="softTicketFields" class="form-group" style="display: none;">
+                    <label for="hospitalityRider">Hospitality Rider (honored)</label>
+                    <select id="hospitalityRider">
+                        <option value="No" selected>No</option>
+                        <option value="Yes">Yes</option>
+                    </select>
+                </div>
+                <div id="mealAlcoholFields">
+                    <div class="form-group">
+                        <label for="mealPerDiem">Meal / Per Diem</label>
+                        <select id="mealPerDiem">
+                            <option value="0">N/A</option>
+                            <option value="100">$100</option>
+                            <option value="200">$200</option>
+                            <option value="300">$300</option>
+                            <option value="400">$400</option>
+                            <option value="500" selected>$500</option>
+                            <option value="600">$600</option>
+                            <option value="700">$700</option>
+                            <option value="800">$800</option>
+                            <option value="900">$900</option>
+                            <option value="1000">$1,000</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="alcoholComp">Alcohol Comp</label>
+                        <select id="alcoholComp">
+                            <option value="0">N/A</option>
+                            <option value="1000">$1,000</option>
+                            <option value="1500">$1,500</option>
+                            <option value="2000" selected>$2,000</option>
+                            <option value="2500">$2,500</option>
+                            <option value="3000">$3,000</option>
+                            <option value="3500">$3,500</option>
+                            <option value="4000">$4,000</option>
+                            <option value="4500">$4,500</option>
+                            <option value="5000">$5,000</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Travel</label>
+                    <div class="segmented-control segmented-control-small" id="travel">
+                        <button type="button" data-value="Landed" class="active">Landed</button>
+                        <button type="button" data-value="Included">Included</button>
+                    </div>
+                    <input type="text" id="travelDetails" class="other-input" placeholder="Enter travel details" style="display: none;">
+                </div>
+                <div class="form-group">
+                    <label>Transportation</label>
+                    <div class="segmented-control segmented-control-small" id="transportation">
+                        <button type="button" data-value="Ground Provided" class="active">Ground Provided</button>
+                        <button type="button" data-value="Not Included">Not Included</button>
+                    </div>
+                </div>
+                <div id="groundTypeField" class="form-group" style="display: none;">
+                    <label>Ground Transportation Type</label>
+                    <div class="segmented-control segmented-control-small" id="groundType">
+                        <button type="button" data-value="Roundtrip black SUV ground transportation" class="active">Roundtrip Black SUV</button>
+                        <button type="button" data-value="Uber Buyout">Uber Buyout</button>
+                    </div>
+                </div>
+                <div id="uberBuyoutField" class="form-group" style="display: none;">
+                    <label>Uber Buyout Amount</label>
+                    <div class="segmented-control segmented-control-small" id="uberBuyoutAmount">
+                        <button type="button" data-value="100">$100</button>
+                        <button type="button" data-value="200" class="active">$200</button>
+                        <button type="button" data-value="300">$300</button>
+                    </div>
+                </div>
+                <div id="nonCompeteRow">
+                    <div class="form-group">
+                        <label>Non-Compete</label>
+                        <div class="segmented-control segmented-control-small" id="nonCompeteToggle">
+                            <button type="button" data-value="Yes" class="active">Yes</button>
+                            <button type="button" data-value="No">No</button>
+                        </div>
+                    </div>
+                    <div id="nonCompeteFields" class="form-row">
+                        <div class="form-group">
+                            <label for="nonCompeteMiles">Non-Compete Radius (miles)</label>
+                            <select id="nonCompeteMiles">
+                                <option value="25">25 miles</option>
+                                <option value="50">50 miles</option>
+                                <option value="75">75 miles</option>
+                                <option value="100">100 miles</option>
+                                <option value="125">125 miles</option>
+                                <option value="150" selected>150 miles</option>
+                                <option value="175">175 miles</option>
+                                <option value="200">200 miles</option>
+                                <option value="225">225 miles</option>
+                                <option value="250">250 miles</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nonCompeteDaysBefore">Non-Compete Period (days before)</label>
+                            <select id="nonCompeteDaysBefore">
+                                <option value="10">10 days</option>
+                                <option value="20">20 days</option>
+                                <option value="30">30 days</option>
+                                <option value="40">40 days</option>
+                                <option value="50">50 days</option>
+                                <option value="60" selected>60 days</option>
+                                <option value="70">70 days</option>
+                                <option value="80">80 days</option>
+                                <option value="90">90 days</option>
+                                <option value="100">100 days</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nonCompeteDaysAfter">Non-Compete Period (days after)</label>
+                            <select id="nonCompeteDaysAfter">
+                                <option value="10">10 days</option>
+                                <option value="20">20 days</option>
+                                <option value="30">30 days</option>
+                                <option value="40">40 days</option>
+                                <option value="50">50 days</option>
+                                <option value="60" selected>60 days</option>
+                                <option value="70">70 days</option>
+                                <option value="80">80 days</option>
+                                <option value="90">90 days</option>
+                                <option value="100">100 days</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="form-actions">
+                <button type="submit" id="generateBtn">Generate PDF</button>
+            </div>
+        </form>
+
+        <footer>
+            <p>&copy; Concert Offer Creator — All Rights Reserved</p>
+        </footer>
+    </div>
+
+    <script src="jspdf.umd.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
